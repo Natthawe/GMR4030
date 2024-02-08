@@ -5,7 +5,7 @@
 #define POS_ONE_BLOCK 23875 //24060  //24384 //7519/5*16=24061
 #define POS_TURN_90  10500    //12320    //10432 //(3250/5)*16 = 10400 //new 3207/5*16=10262
 #define POS_TURN_180 20600 //24640 //20800   //24040   //20736 //20864//(3240*2)/5*16 = 20736 6d1d6d1d
-#define POS_CHARGING 1800
+#define POS_CHARGING 3000 //1800
 #define SPEED_ACCEL 250  //500
 #define TURN_MAX_SPEED 20000
 #define MAX_SPEED 40000
@@ -36,9 +36,9 @@ void _getChipId() {
   //sprintf(robotname, "ROBOT1:%06X", chipId);
   switch(chipId)
   {
-    case 0xD228A8: sprintf(robotname, "ROBOT1:%06X", chipId); offset_vbatt = 110; break;
+    case 0xD228A8: sprintf(robotname, "ROBOT1:%06X", chipId); offset_vbatt = 160; break;
     case 0xA507FC: sprintf(robotname, "ROBOT2:%06X", chipId); offset_vbatt = 0; break;
-    case 0x6D4F44: sprintf(robotname, "ROBOT3:%06X", chipId); offset_vbatt = 150; break;
+    case 0x6D4F44: sprintf(robotname, "ROBOT3:%06X", chipId); offset_vbatt = 170; break;
     case 0xA4E784: sprintf(robotname, "ROBOT4:%06X", chipId); offset_vbatt = 90; break;
   }
   //sprintf(robotname,"%x",chipId);
@@ -238,7 +238,7 @@ unsigned int _TMC5160_Status(unsigned char n) {
 volatile unsigned long pos_sp = 0, pos_pv = 0;
 float error = 0.0;
 float kp = 0.7;
-float kp_turn = 1.0;
+float kp_turn = 1.5; //1.0
 float pid_output;
 volatile unsigned int speed_pv = 0, speed_sp = 0;
 int diff_speed = 0;
@@ -437,22 +437,22 @@ void _tracking() {
     diff_speed = 0;
   }
   if (!sensor[0] && sensor[1] && !sensor[2] && !sensor[3]) {
-    diff_speed = -25;
+    diff_speed = -35; //-25
   }
   if (sensor[0] && sensor[1] && !sensor[2] && !sensor[3]) {
-    diff_speed = -40;
+    diff_speed = -50; //-40
   }
   if (sensor[0] && !sensor[1] && !sensor[2] && !sensor[3]) {
-    diff_speed = -100;
+    diff_speed = -80; //-100
   }
   if (!sensor[0] && !sensor[1] && sensor[2] && !sensor[3]) {
-    diff_speed = 25;
+    diff_speed = 35; //25
   }
   if (!sensor[0] && !sensor[1] && sensor[2] && sensor[3]) {
-    diff_speed = 40;
+    diff_speed = 50; //40
   }
   if (!sensor[0] && !sensor[1] && !sensor[2] && sensor[3]) {
-    diff_speed = 100;
+    diff_speed = 80; //100
   }
 }
 

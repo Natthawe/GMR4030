@@ -315,7 +315,6 @@ unsigned char rfid_sensor = 0;
 unsigned char last_rfid_sensor = 0;
 unsigned char rfid_buffer_index=0;
 unsigned char rfid_data_detect=0;
-unsigned char _no_sensor = 0;
 
 //String robot_name = "A";
 String route_buffer = "";
@@ -548,51 +547,13 @@ void MotionControl_Loop() {
     }
   }
 
-  // if (_motion_run == 2 || _motion_run == 3 || _motion_run == 4) {
-  //   if (pos_pv >= pos_sp * 0.8)  //80%
-  //   {
-  //     if (sensor[1] && sensor[2] && _sensor_detect == 0) {
-  //       //pos_sp = pos_pv + 425;
-  //       diff_speed = 0;
-  //       pos_sp = pos_pv + 600;
-  //       _sensor_detect = 1;
-  //       TelnetStream.println("TURN SENSOR =======================");
-  //       TelnetStream.print(sensor[0]);
-  //       TelnetStream.print(" ");
-  //       TelnetStream.print(sensor[1]);
-  //       TelnetStream.print(" ");
-  //       TelnetStream.print(sensor[2]);
-  //       TelnetStream.print(" ");
-  //       TelnetStream.print(sensor[3]);
-  //       TelnetStream.print(" ");
-  //       TelnetStream.print(pos_sp);
-  //       TelnetStream.print(" ");
-  //       TelnetStream.print(pos_pv);
-  //       TelnetStream.print(" ");
-  //       TelnetStream.println(_motion_run);
-  //       TelnetStream.println("=======================");
-  //     }
-  //   }
-  // }
-
-  if (_motion_run == 2 || _motion_run == 3 || _motion_run == 4) 
-  {
+  if (_motion_run == 2 || _motion_run == 3 || _motion_run == 4) {
     if (pos_pv >= pos_sp * 0.8)  //80%
     {
-      if (sensor[1] && sensor[2] && _sensor_detect == 0 && _no_sensor == 0) 
-      {
+      if (sensor[1] && sensor[2] && _sensor_detect == 0) {
         //pos_sp = pos_pv + 425;
         diff_speed = 0;
-        if(pos_x == 1 && pos_y >= 2 && pos_y <= 3)// && pos_dir != 3)
-        {
-          pos_sp = pos_pv + 80;   
-          TelnetStream.println("TURN SENSOR STOP ==============");
-        }
-        else
-        {
-          pos_sp = pos_pv + 600;
-        }    
-        //pos_sp = pos_pv + 600;
+        pos_sp = pos_pv + 600;
         _sensor_detect = 1;
         TelnetStream.println("TURN SENSOR =======================");
         TelnetStream.print(sensor[0]);
@@ -612,6 +573,8 @@ void MotionControl_Loop() {
       }
     }
   }
+
+
 
   switch (_motion_run) 
   {
@@ -976,8 +939,6 @@ void loop()
         case 'q': _turnL180(); break;
         case 'c': _turnOnCharging(); break;
         case 'v': _turnOffCharging(); break;
-        case 'i': _no_sensor=1; break;
-        case 'o': _no_sensor=0; break;
       }
     }
   }

@@ -2,7 +2,7 @@
 #define CONNECT_A1454 true
 
 //Robot Motion Config =====================
-#define POS_ONE_BLOCK 23875 //24060  //24384 //7519/5*16=24061
+#define POS_ONE_BLOCK 24060 //23875 //24060  //24384 //7519/5*16=24061
 #define POS_TURN_90  10500    //12320    //10432 //(3250/5)*16 = 10400 //new 3207/5*16=10262
 #define POS_TURN_180 20600 //24640 //20800   //24040   //20736 //20864//(3240*2)/5*16 = 20736 6d1d6d1d
 #define POS_CHARGING 3000
@@ -39,7 +39,7 @@ void _getChipId() {
   switch(chipId)
   {
     case 0xD228A8: sprintf(robotname, "ROBOT1:%06X", chipId); offset_vbatt = 160; break;
-    case 0xA507FC: sprintf(robotname, "ROBOT2:%06X", chipId); offset_vbatt = 0; break;
+    case 0xA515E0: sprintf(robotname, "ROBOT2:%06X", chipId); offset_vbatt = 0; break;
     case 0x6D4F44: sprintf(robotname, "ROBOT3:%06X", chipId); offset_vbatt = 170; break;
     case 0xA4E784: sprintf(robotname, "ROBOT4:%06X", chipId); offset_vbatt = 90; break;
   }
